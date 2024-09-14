@@ -1,6 +1,6 @@
 import {Router, Request, Response } from 'express';
 import 'express-async-errors';
-import cors from 'cors';
+import { CreateUserController } from './controllers/user/CreateUserController'
 
 const router = Router();
 
@@ -11,5 +11,7 @@ router.get('/v1/statusapi', (req: Request, res: Response) => {
         throw new Error('Erro ao tentar realizar esta requisção!')
     }
 })
+
+router.post('/users', new CreateUserController().handle)
 
 export { router };
