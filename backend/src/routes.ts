@@ -1,12 +1,21 @@
 import { Router, Request, Response } from 'express';
 import 'express-async-errors';
+import multer from 'multer';
+
 import { CreateUserController } from './controllers/user/CreateUserController'
 import { AuthUserController } from './controllers/user/AuthUserController';
 import { DetailUserController } from './controllers/user/DetailUserController';
 import { isAuthenticated } from './middlewares/isAuthenticated';
+
 import { CreateCategoryController } from './controllers/category/CreateCategoryController';
 import { ListCategoryController } from './controllers/category/ListCategoryController';
+
 import { CreateProductController } from './controllers/product/CreateProductController';
+import { ListByCategoryController } from './controllers/product/ListByCategoryController';
+
+import { CreateOrderController } from './controllers/order/CreateOrderController';
+
+import uploadConfig from './config/multer';
 
 const router = Router();
 
@@ -17,6 +26,8 @@ router.get('/v1/statusapi', (req: Request, res: Response) => {
         throw new Error('Erro ao tentar realizar esta requisção!')
     }
 })
+
+const upload = multer(uploadConfig.upload("./tmp"));
 
 // -- ROTAS USER --
 router.post('/users', new CreateUserController().handle);
@@ -30,6 +41,10 @@ router.post('/category', isAuthenticated, new CreateCategoryController().handle)
 router.get('/category', isAuthenticated, new ListCategoryController().handle);
 
 // -- ROTAS PRODUCT --
-router.post('/product', isAuthenticated, new CreateProductController().handle);
+router.post('/product', isAuthenticated, upload.single('file'), new CreateProductController().handle);
+router.get('/category/product', isAuthenticated, new ListByCategoryController().handle);
+
+// -- ROTAS ORDER -- 
+router.post('/order', isAuthenticated, new CreateOrderController().handle);
 
 export { router };
