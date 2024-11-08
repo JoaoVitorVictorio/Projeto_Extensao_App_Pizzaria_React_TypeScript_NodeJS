@@ -5,8 +5,8 @@ import "./globals.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sujeito Pizza - A melhor pizzaria",
-  description: "A melhor pizzaria do Brasil",
+  title: "PizzaHub",
+  description: "Pizzaria",
 };
 
 export default function RootLayout({
