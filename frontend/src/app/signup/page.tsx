@@ -36,7 +36,7 @@ export default function Signup(){
 
   return(
     <>
-     <div className={styles.containerCenter}>
+      <div className={styles.containerCenter}>
         <Image
           src="/logo.svg"  
           alt="Logo da pizzaria"
