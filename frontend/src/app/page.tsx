@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function Page(){
   return(
     <>
-      <div className={styles.containerCenter}>
+     <div className={styles.containerCenter}>
         <Image
           src="/logo.svg"  
           alt="Logo da pizzaria"
