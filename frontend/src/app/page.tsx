@@ -1,16 +1,16 @@
 import styles from './page.module.scss'
+import logoImg from '/public/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Page() {
-  return (
+export default function Page(){
+  return(
     <>
       <div className={styles.containerCenter}>
-        {/* Referenciar a imagem diretamente usando o caminho relativo */}
         <Image
-          src="/logo.svg"  // Aqui você usa o caminho relativo, não precisa do '/public'
+          src="/logo.svg"  
           alt="Logo da pizzaria"
-          width={150} // Defina a largura e altura conforme necessário
+          width={150}
           height={150}
         />
 
@@ -32,7 +32,7 @@ export default function Page() {
               className={styles.input}
             />
 
-            <button type="submit">
+            <button type="submit" className={styles.button}>
               Acessar
             </button>
           </form>
@@ -42,6 +42,7 @@ export default function Page() {
           </Link>
 
         </section>
+
       </div>      
     </>
   )
