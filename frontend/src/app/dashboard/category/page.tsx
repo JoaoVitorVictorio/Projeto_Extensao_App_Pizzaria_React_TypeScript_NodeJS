@@ -18,6 +18,7 @@ export default function Category(){
     }
 
     const token = getCookieServer();
+    console.log(token);  // Verifique se o token está correto
 
     await api.post("/category", data, {
       headers:{

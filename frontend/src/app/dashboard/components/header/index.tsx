@@ -24,7 +24,7 @@ export function Header(){
       <div className={styles.headerContent}>
         <Link href="/dashboard">
           <Image
-            alt="Logo Sujeito Pizza"
+            alt="Pizza"
             src={logoImg}
             width={190}
             height={60}
