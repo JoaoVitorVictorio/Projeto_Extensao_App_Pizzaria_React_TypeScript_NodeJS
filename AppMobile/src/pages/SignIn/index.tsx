@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
+import React, { useState, useContext } from 'react';
+import {
+  View,
+  Text,
   StyleSheet,
   Image,
   TextInput,
   TouchableOpacity
 } from 'react-native'
 
-export default function SignIn(){
+import { AuthContext } from '../../contexts/AuthContexts';
+
+export default function SignIn() {
+  const { signIn } = useContext(AuthContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function handleLogin(){
+  async function handleLogin() {
 
-    if(email === '' || password === ''){
+    if (email === '' || password === '') {
       return;
     }
 
-    console.log("Email digitado " + email)
+    await signIn({ email, password })
   }
 
-
-  return(
+  return (
     <View style={styles.container}>
       <Image
         style={styles.logo}
@@ -31,25 +34,25 @@ export default function SignIn(){
 
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Digite seu email"   
-          style={styles.input}     
+          placeholder="Digite seu email"
+          style={styles.input}
           placeholderTextColor="#F0F0F0"
           value={email}
           onChangeText={setEmail}
         />
 
         <TextInput
-          placeholder="Sua senha"      
-          style={styles.input}   
+          placeholder="Sua senha"
+          style={styles.input}
           placeholderTextColor="#F0F0F0"
           secureTextEntry={true}
           value={password}
-          onChangeText={setPassword}          
-        />     
+          onChangeText={setPassword}
+        />
 
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>   
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -57,23 +60,23 @@ export default function SignIn(){
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent:'center',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1d1d2e'
   },
-  logo:{
+  logo: {
     marginBottom: 18
   },
-  inputContainer:{
+  inputContainer: {
     width: '95%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 32,
     paddingHorizontal: 14,
   },
-  input:{
+  input: {
     width: '95%',
     height: 40,
     backgroundColor: '#101026',
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     color: '#FFF'
   },
-  button:{
+  button: {
     width: '95%',
     height: 40,
     backgroundColor: '#3fffa3',
@@ -90,9 +93,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  buttonText:{
-   fontSize: 18, 
-   fontWeight: 'bold',
-   color: '#101026'
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#101026'
   }
 })
