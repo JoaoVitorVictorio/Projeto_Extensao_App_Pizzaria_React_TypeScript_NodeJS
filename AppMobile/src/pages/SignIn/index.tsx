@@ -7,31 +7,35 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator
-} from 'react-native'
+} from 'react-native';
 
 import { AuthContext } from '../../contexts/AuthContexts';
 
 export default function SignIn() {
-  const { signIn, loadingAuth } = useContext(AuthContext)
+  const { signIn, loadingAuth } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function handleLogin() {
-
     if (email === '' || password === '') {
+      setErrorMessage('Preencha todos os campos.');
       return;
     }
 
-    await signIn({ email, password })
+    setErrorMessage('');
+
+    try {
+      await signIn({ email, password });
+    } catch (err) {
+      setErrorMessage('Login ou senha inválidos.');
+    }
   }
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/logo.png')}
-      />
+      <Image style={styles.logo} source={require('../../assets/logo.png')} />
 
       <View style={styles.inputContainer}>
         <TextInput
@@ -51,6 +55,10 @@ export default function SignIn() {
           onChangeText={setPassword}
         />
 
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
+
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           {loadingAuth ? (
             <ActivityIndicator size={25} color="#FFF" />
@@ -59,9 +67,8 @@ export default function SignIn() {
           )}
         </TouchableOpacity>
       </View>
-
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -90,6 +97,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     color: '#FFF'
   },
+  errorText: {
+    color: '#FF6347',
+    marginBottom: 8,
+    fontSize: 14,
+  },
   button: {
     width: '95%',
     height: 40,
@@ -103,4 +115,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#101026'
   }
-})
+});
